@@ -1,6 +1,6 @@
 export interface IStudentFormData{
     firstName:string;
-    middleName:string;
+    middleName?:string;
     lastName:string;
     email:string;
     gender:string;
@@ -12,10 +12,27 @@ export interface IStudentFormData{
     state: string;
     country: string;
     pincode: string;
-}
+    nationality: string;
+    citizenship: string;
+    fatherMoblie?: string;
+    motherMobile?: string;
 
-export interface IUserData{
-    password: string;
-    confrimPassword: string;
+    greScore?: number;
+    greVerbalScore?: number;
+    greQuantScore?: number;
+
+    ieltsScore?: number;
+    ieltsListScore?: number;
+    ieltsSpeakScore?: number;
+    ieltsReadScore?: number;
+    ieltsWriteScore?: number;
+
+    tofelScore?: number;
+    tofelListScore?: number;
+    tofelSpeakScore?: number;
+    tofelReadScore?: number;
+    tofelWriteScore?: number;
+
+    duolingoScore?: number;
 }
 

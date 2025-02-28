@@ -1,24 +1,51 @@
 
 // Created by Liesetty
 //form for student background info
-import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import { Card, Form} from "react-bootstrap";
+import {IStudentFormData} from "../types/FormDataTypes.ts";
+import * as React from "react";
 
-function BackgorundInfo() {
+function BackgorundInfo(
+    {
+        formData,
+        handleChange,
+        errors,
+    } :{
+        formData: IStudentFormData;
+        handleChange: (e : React.ChangeEvent<HTMLInputElement>) => void;
+        errors: Partial<IStudentFormData>;
+    }
+) {
     return (
-        <Container className="mt-5 pt-5">
-            <Row className="justify-content-center">
-                <Col md={6}>
-                    <h2 className="text-center">Nationality Information</h2>
-                    {/*nationality
-                    citizenship
-                    */}
-                    <h2 className="text-center">Background Information</h2>
-                    {/*father mobile number optional
-                    mother mobile number optional
-                    */}
-                </Col>
-            </Row>
-        </Container>
+        <Card className="mt-3 p-3>">
+            <h4 className="text-center">Background Information</h4>
+            <Form>
+                {/*nationality*/}
+                <Form.Group className="mb-3">
+                    <Form.Label>Nationality</Form.Label>
+                    <Form.Control type="text" name="nationality" value={formData.nationality} onChange={handleChange} required/>
+                    {errors.nationality && <span className="text-danger">{errors.nationality}</span> }
+                </Form.Group>
+                {/*citizenship*/}
+                <Form.Group className="mb-3">
+                    <Form.Label>Citizenship</Form.Label>
+                    <Form.Control type="text" name="nationality" value={formData.citizenship} onChange={handleChange} required/>
+                    {errors.citizenship && <span className="text-danger">{errors.citizenship}</span> }
+                </Form.Group>
+                {/*Father Mobile Number*/}
+                <Form.Group className="mb-3">
+                    <Form.Label>Father Mobile Number (optional)</Form.Label>
+                    <Form.Control type="text" name="nationality" value={formData.fatherMoblie} onChange={handleChange}/>
+                    {errors.fatherMoblie && <span className="text-danger">{errors.fatherMoblie}</span> }
+                </Form.Group>
+                {/*Mother Mobile Number*/}
+                <Form.Group className="mb-3">
+                    <Form.Label>Mother Mobile Number (optional)</Form.Label>
+                    <Form.Control type="text" name="nationality" value={formData.motherMobile} onChange={handleChange}/>
+                    {errors.motherMobile && <span className="text-danger">{errors.motherMobile}</span> }
+                </Form.Group>
+            </Form>
+        </Card>
     )
 }
 
