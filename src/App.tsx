@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // importing router
 import { Route, Routes} from "react-router-dom";
 import SignUp from "./pages/SignUp.tsx";
+import AddStudentDetails from "./pages/AddStudentDetails.tsx";
 // App is component where all components or the web application merge and form web application
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
               <Routes>
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/" element={<h2 className="text-center mt-5">Welcome to University Assistance</h2>} />
+                  <Route path="/addStudentDetails" element={<AddStudentDetails />} />
               </Routes>
       </>
   )
