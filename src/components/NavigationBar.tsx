@@ -74,7 +74,7 @@ function NavigationBar() {
                         <Dropdown>
                         <Dropdown.Toggle as="div" className="d-flex align-items-center" style={{cursor : "pointer"}}>
                             <FaUserGraduate size={20} className="me-2"/>
-                            <span>{user.firstName + user.middleName + user.lastName}</span>
+                            <span>{user.firstName + " " + user.middleName + " " + user.lastName}</span>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>

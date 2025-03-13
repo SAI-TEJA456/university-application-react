@@ -72,7 +72,7 @@ import {createContext, useState} from "react";
 import * as React from "react";
 
 // define what data to be stored and data type for typeSafety(may add data in future)
-interface User {
+export interface IUser {
     firstName : string;
     middleName? : string;
     lastName : string;
@@ -82,8 +82,8 @@ interface User {
 
 //acts like this user
 interface UserContextType {
-    user: User | null; //holds specific user's data who logged in
-    updateUser: (user: User | null) => void; //updates user data after login or sign out
+    user: IUser | null; //holds specific user's data who logged in
+    updateUser: (user: IUser | null) => void; //updates user data after login or sign out
 }
 
 // use practice notes
@@ -100,12 +100,12 @@ export const UserContext = createContext<UserContextType | null>(null); //create
 //state for show user details where ever we fetech.
 export function UserProvider({children} : {children: React.ReactNode}){
     //storing data in local storage with useState
-    const [user, setUser] = useState<User | null>(() =>{
+    const [user, setUser] = useState<IUser | null>(() =>{
         return JSON.parse(localStorage.getItem("user") || "null"); //max storage 5mb
     });
 
     //Update both state and local storage
-    const updateUser = (newUser : User | null) =>{
+    const updateUser = (newUser : IUser | null) =>{
         setUser(newUser);
         //checking if someone trying to log in
         if (newUser){

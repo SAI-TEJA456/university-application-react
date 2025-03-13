@@ -48,5 +48,6 @@ export interface IStudentFormData{
     tofelWriteScore?: string;
 
     duolingoScore?: string;
+    role?: string;
 }
 

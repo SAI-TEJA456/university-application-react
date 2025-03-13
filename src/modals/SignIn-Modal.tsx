@@ -10,10 +10,13 @@ import * as yup from "yup";
 import {useState, useEffect, useContext} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
-import {UserContext} from "../components/UserContext.tsx";
+import {IUser, UserContext} from "../components/UserContext.tsx";
 
 //form data structure
 interface IFormData {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
     email: string;
     password: string;
     role: "Student" | "Representative";
@@ -122,7 +125,7 @@ function SignInModal(
 
     //Handle form submission
     //async returns a promise (object/class) of the data we declared in formData
-    const onSubmit = async (data: IFormData) => {
+    const onSubmit = async (data: Partial<IFormData>) => {
         //state to show we are finding user and login him
         setLoading(true);//starts loading
         setError("");//error can anything
@@ -131,6 +134,9 @@ function SignInModal(
             //using post will enclose data of the user
             //await is like data from object assigned to response Json data from api
             const response = await api.post("/api/users/login",{
+                firstName: data.firstName,
+                middleName: data.middleName,
+                lastName: data.lastName,
                 email: data.email,
                 password: data.password,
                 role: data.role,
@@ -139,16 +145,17 @@ function SignInModal(
             //for now 200 means OK or successfull
             if(response.status === 200){
                 // here we start storing data received from api request
-                const {firstName, middleName, lastName, email, role} = response.data;
+                console.log("What data I am receiving?", response.data);
+                const userData : IUser = response.data;
 
                 //updating user data in useContext declared
-                updateUser?.({firstName, middleName, lastName, email, role});
+                updateUser?.(userData);
                 //store user data in local storage
-                localStorage.setItem("user", JSON.stringify({firstName, middleName, lastName, email, role}));
+                localStorage.setItem("user", JSON.stringify(userData));
                 //here we open dashboard
                 // alert("Signed in successfully");
                 //depending on the role we navigate to rsepective routes declared in App.tsx
-                navigate(role === "Student" ? "/student-dashboard" : "/representative-dashboard");
+                navigate(userData.role === "Student" ? "/student-dashboard" : "/representative-dashboard");
                 //closes signIn-Modal
                 handleClose();
             }
