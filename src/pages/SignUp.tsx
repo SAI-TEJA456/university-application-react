@@ -1,4 +1,5 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
+
 import {useContext, useState} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
@@ -10,6 +11,7 @@ import {IUser} from "../components/UserContext.tsx"
 //we are using Regex = Regular Expression used for validate input, search, replace text, extract useful data
 
 //March 12 here now redirecting user to respective dashboards
+
 interface IValidationErrors{
     firstName?: string;
         middleName?: string;//can be null
@@ -39,9 +41,11 @@ function SignUp() {
         number: false,
     })
 
+
     //for storing user details on sign up
     const {updateUser} = useContext(UserContext) || {};
     const navigate = useNavigate();
+
 
     // create state for errors
     const [errors, setErrors] = useState<IValidationErrors>({
@@ -119,6 +123,7 @@ function SignUp() {
             //as we need to send data to server lets create post request
             //"/api/user" is url we create for user table
             const response = await api.post("/api/users", formData)//api is the one we created with base url/server url
+
             //checking on successful request which status i am receiving
             console.log(response.status);
             if (response.status === 201){
@@ -142,6 +147,7 @@ function SignUp() {
         } catch (err){
             const axiosError = err as AxiosError<{message?: string}>;
             console.log("Sign Up Error", axiosError);
+
             if(axiosError.response){
                 setErrors((validationErrors) ={...validationErrors, email: axiosError.response.data.message});
             }else{

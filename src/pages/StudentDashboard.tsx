@@ -1,3 +1,4 @@
+
 //get some icon and show it has student dashboard icon
 //this dahboard will appear when student try to sign in/up
 
@@ -14,6 +15,7 @@ function StudentDashboard() {
 
          </Container>
       </>
+
    )
 }
 

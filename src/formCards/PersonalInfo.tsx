@@ -68,7 +68,9 @@ function PersonalInfo(
             {/*    Moblie Number*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Moblie Number</Form.Label>
+
                     <Form.Control type="tel" name="mobile" value={formData.mobile} onChange={handleChange} />
+
                     {errors.mobile && <span className="text-danger">{errors.mobile}</span> }
                 </Form.Group>
             </Form>

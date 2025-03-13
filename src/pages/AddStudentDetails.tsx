@@ -5,8 +5,10 @@ import {useState} from "react";
 import {IStudentFormData} from "../types/FormDataTypes.ts";
 import * as React from "react";
 import TestScores from "../formCards/TestScores.tsx";
+
 import EduDetails from "../formCards/EduDetails.tsx";
 import BackgorundInfo from "../formCards/BackgorundInfo.tsx";
+
 
 //Created by Liesetty
 //all formCard should be handled here includes validation, api requests
@@ -17,6 +19,7 @@ import BackgorundInfo from "../formCards/BackgorundInfo.tsx";
 function AddStudentDetails() {
     // useState for form data
     const [formData, setFormData]= useState<IStudentFormData>({
+
         bTechGpa: "",
         bTechPercent: "",
         duolingoScore: "",
@@ -41,7 +44,6 @@ function AddStudentDetails() {
         tofelSpeakScore: "",
         tofelWriteScore: "",
 
-
         firstName: "",
         lastName: "",
         gender: "",
@@ -55,21 +57,26 @@ function AddStudentDetails() {
         pincode: "",
         state: "",
         citizenship: "",
+
         fatherMobile: "",
         motherMobile: "",
         nationality: ""
+
     });
 
     // useState for errors
     const [errors, setErrors] = useState<Partial<IStudentFormData>>({})
 
     // handleChange function call on every control change by user in all cards with onChange event listener
+
     // this will match the key = name for validation and give the output
     //I will try reducing the code and getting better DSA usage in this code
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // an object declaration e.target will be current user changing or working control in the particular formCard card
         const {name, value} = e.target;
         //we use a non-primitive data type Number its says a typescript fun with {value?:any}: Number means accept all number
+
 
 
         const errorMsg = userInputValidation(name, value)
@@ -108,6 +115,7 @@ function AddStudentDetails() {
 
         if (name === "mobile" && !/^\d{10}$/.test(value))  errorMsg = "Please enter a Valid Mobile number"; //mobile number validation here we used regex validation where .test tests the value has 10digit or not
 
+
         // Validation for Address
         if (name === "addressLine" && !value) errorMsg = "Address Line is required";
 
@@ -115,9 +123,11 @@ function AddStudentDetails() {
 
         if (name === "state" && !value) errorMsg = "State is Required";
 
+
         if (name === "country" && !value) errorMsg = "Country is Required";
 
         if (name === "pincode" && !/^[0-9]{5}$/.test(value)) errorMsg = "Enter a Valid 5 digit Pin code"
+
 
 
         // validation for Background Information
@@ -125,9 +135,11 @@ function AddStudentDetails() {
 
         if (name === "citizenship" && !value) errorMsg = "Citizenship is required"
 
+
         if (name === "fatherMobile" && !/^[0-9]{10}$/.test(value)) errorMsg = "Please Enter a Valid Mobile Number";
 
         if (name === "motherMobile" && !/^[0-9]{10}$$/.test(value)) errorMsg = "Please Enter a Valid Mobile Number";
+
 
 
         // Validation for test Scores
@@ -158,6 +170,7 @@ function AddStudentDetails() {
         if(name === "tofelSpeakScore" && (numValue <0 || numValue >30)) errorMsg = "TOFEL Speaking Score must be 0 to 30";
 
         if(name === "duolingoScore" && (numValue <10 || numValue >160)) errorMsg = "Duolingo Speaking Score must be 0 to 160";
+
 
         // Validation for Educational Score
         // .includes is search element for objects
@@ -239,11 +252,13 @@ function AddStudentDetails() {
     };
 
 
+
     return (
         <Container className="mt-5">
             <h2 className="text-center">Add Student Details</h2>
             <Form onSubmit={handleSubmit}>
                 <PersonalInfo formData={formData} handleChange={handleChange} errors={errors} />
+
                 <EduDetails formData={formData} handleChange={handleChange} errors={errors} />
                 <TestScores formData={formData} handleChange={handleChange} errors={errors}/>
                 <Address formData={formData} handleChange={handleChange} errors={errors} />
@@ -252,6 +267,7 @@ function AddStudentDetails() {
 
                 <div className="text-center mt-3">
                     <Button variant="primary" type="submit" >
+
                         Submit Details
                     </Button>
 

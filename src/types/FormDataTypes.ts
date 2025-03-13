@@ -14,6 +14,7 @@ export interface IStudentFormData{
     pincode: string;
     nationality: string;
     citizenship: string;
+
     // something? means an optional field
     fatherMobile?: string;
     motherMobile?: string;
@@ -49,5 +50,6 @@ export interface IStudentFormData{
 
     duolingoScore?: string;
     role?: string;
+
 }
 

@@ -1,6 +1,7 @@
 
 // Created by Liesetty
 //form for student education details
+
 import { Card, Col, Form, Row} from "react-bootstrap";
 import * as React from "react";
 import {IStudentFormData} from "../types/FormDataTypes.ts";
@@ -91,6 +92,7 @@ function EduDetails(
 
 
         </Card>
+
     )
 }
 

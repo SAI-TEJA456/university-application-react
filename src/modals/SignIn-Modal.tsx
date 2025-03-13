@@ -3,6 +3,7 @@
 // created by Liesetty
 // used some sources to use library and learnt
 import {Form, Button, Modal} from "react-bootstrap";
+
 import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -17,6 +18,7 @@ interface IFormData {
     firstName: string;
     middleName?: string;
     lastName: string;
+
     email: string;
     password: string;
     role: "Student" | "Representative";
@@ -45,11 +47,10 @@ function SignInModal(
     // const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
 
+
     const navigate = useNavigate();
     //to updateUser data here
     const {updateUser} = useContext(UserContext) || {};
-
-
     const [loading, setLoading] = useState(false);//loading when get request is made
     const [error, setError] = useState("");
 
@@ -71,6 +72,7 @@ function SignInModal(
         specialChar: false,
         number: false,
     });
+
 
     //useEffect
     /*
@@ -96,6 +98,7 @@ function SignInModal(
     //here we are are doing real-time validation
     //password is validated on mount by call validatePassword function and dependencies [password it will change when user do something]
     //due to this useEffect trigger and calls validate password method until user chnage passowrd field
+
     useEffect(() => {
         validatePassword(password);
     }, [password]);
@@ -125,6 +128,7 @@ function SignInModal(
 
     //Handle form submission
     //async returns a promise (object/class) of the data we declared in formData
+
     const onSubmit = async (data: Partial<IFormData>) => {
         //state to show we are finding user and login him
         setLoading(true);//starts loading
@@ -134,6 +138,7 @@ function SignInModal(
             //using post will enclose data of the user
             //await is like data from object assigned to response Json data from api
             const response = await api.post("/api/users/login",{
+
                 firstName: data.firstName,
                 middleName: data.middleName,
                 lastName: data.lastName,
@@ -157,12 +162,14 @@ function SignInModal(
                 //depending on the role we navigate to rsepective routes declared in App.tsx
                 navigate(userData.role === "Student" ? "/student-dashboard" : "/representative-dashboard");
                 //closes signIn-Modal
+
                 handleClose();
             }
         }catch(err){
             //axios handle api error very well
             //which ever error is caused while fetching assigned to axios errors
             const axiosError = err as AxiosError<{message?: string}>;
+
             console.log("Sign In Error", axiosError);
             //if it is true that means we got response from server so we error with server message
             if(axiosError.response){
@@ -173,6 +180,7 @@ function SignInModal(
             }
         } finally {
             //once data response is validated from api we change state to false loading.
+
             setLoading(false);
         }
     };
