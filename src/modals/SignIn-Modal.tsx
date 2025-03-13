@@ -3,16 +3,22 @@
 // created by Liesetty
 // used some sources to use library and learnt
 import {Form, Button, Modal} from "react-bootstrap";
-import {Link} from "react-router-dom";
+
+import {Link, useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
+import {IUser, UserContext} from "../components/UserContext.tsx";
 
 //form data structure
 interface IFormData {
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+
     email: string;
     password: string;
     role: "Student" | "Representative";
@@ -41,6 +47,10 @@ function SignInModal(
     // const handleClose = () => setShow(false);
     // const handleShow = () => setShow(true);
 
+
+    const navigate = useNavigate();
+    //to updateUser data here
+    const {updateUser} = useContext(UserContext) || {};
     const [loading, setLoading] = useState(false);//loading when get request is made
     const [error, setError] = useState("");
 
@@ -63,7 +73,32 @@ function SignInModal(
         number: false,
     });
 
-    //learn useEffect
+
+    //useEffect
+    /*
+    *
+*useEffect() = React Hook that tells React DO SOME CODE WHEN (pick one):
+*               This component re-renders
+*               This component mounts
+*               The state of a value
+* In simple to run side effects in function components
+* useEffect(function, [dependencies])
+*
+* 1. useEffect(() => {}) // Runs after every re-render
+* 2. useEffect(() => {},[]) //Runs only on mount
+* 3. useEffect(() => {}, [value]) //Runs on mount + when value changes
+*
+* USES
+* #1 Handling Event Listeners
+* #2 DOM manipulation
+* #3 Subscriptions(real-time updates)
+* #4 Fetching Data from an API
+* #5 Clean up when a component unmounts
+* */
+    //here we are are doing real-time validation
+    //password is validated on mount by call validatePassword function and dependencies [password it will change when user do something]
+    //due to this useEffect trigger and calls validate password method until user chnage passowrd field
+
     useEffect(() => {
         validatePassword(password);
     }, [password]);
@@ -93,7 +128,8 @@ function SignInModal(
 
     //Handle form submission
     //async returns a promise (object/class) of the data we declared in formData
-    const onSubmit = async (data: IFormData) => {
+
+    const onSubmit = async (data: Partial<IFormData>) => {
         //state to show we are finding user and login him
         setLoading(true);//starts loading
         setError("");//error can anything
@@ -102,27 +138,49 @@ function SignInModal(
             //using post will enclose data of the user
             //await is like data from object assigned to response Json data from api
             const response = await api.post("/api/users/login",{
+
+                firstName: data.firstName,
+                middleName: data.middleName,
+                lastName: data.lastName,
                 email: data.email,
                 password: data.password,
                 role: data.role,
-            });
+            })
+            //so when we mad an HTTP request we have certain status code
+            //for now 200 means OK or successfull
             if(response.status === 200){
+                // here we start storing data received from api request
+                console.log("What data I am receiving?", response.data);
+                const userData : IUser = response.data;
+
+                //updating user data in useContext declared
+                updateUser?.(userData);
+                //store user data in local storage
+                localStorage.setItem("user", JSON.stringify(userData));
                 //here we open dashboard
-                alert("Signed in successfully");
+                // alert("Signed in successfully");
+                //depending on the role we navigate to rsepective routes declared in App.tsx
+                navigate(userData.role === "Student" ? "/student-dashboard" : "/representative-dashboard");
+                //closes signIn-Modal
+
                 handleClose();
             }
         }catch(err){
             //axios handle api error very well
             //which ever error is caused while fetching assigned to axios errors
             const axiosError = err as AxiosError<{message?: string}>;
-            console.log("Sign In Error", AxiosError);
+
+            console.log("Sign In Error", axiosError);
+            //if it is true that means we got response from server so we error with server message
             if(axiosError.response){
                 setError(axiosError.response.data.message || "Invalid email or password");
             }else{
+                //else we set this error
                 setError("Something went wrong, please try again");
             }
         } finally {
-            //once data response is validate from api we change state to false loading.
+            //once data response is validated from api we change state to false loading.
+
             setLoading(false);
         }
     };

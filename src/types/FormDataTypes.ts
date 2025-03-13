@@ -14,25 +14,42 @@ export interface IStudentFormData{
     pincode: string;
     nationality: string;
     citizenship: string;
-    fatherMoblie?: string;
+
+    // something? means an optional field
+    fatherMobile?: string;
     motherMobile?: string;
 
-    greScore?: number;
-    greVerbalScore?: number;
-    greQuantScore?: number;
+    tenthPercent?: string;
+    tenthGpa: string;
 
-    ieltsScore?: number;
-    ieltsListScore?: number;
-    ieltsSpeakScore?: number;
-    ieltsReadScore?: number;
-    ieltsWriteScore?: number;
+    interPercent?: string;
+    interGpa: string;
+    numIntBackLogs: string;
 
-    tofelScore?: number;
-    tofelListScore?: number;
-    tofelSpeakScore?: number;
-    tofelReadScore?: number;
-    tofelWriteScore?: number;
+    bTechPercent?: string;
+    bTechGpa: string;
+    numBTechBackLogs: string;
 
-    duolingoScore?: number;
+
+
+    greScore?: string;
+    greVerbalScore?: string;
+    greQuantScore?: string;
+
+    ieltsScore?: string;
+    ieltsListScore?: string;
+    ieltsSpeakScore?: string;
+    ieltsReadScore?: string;
+    ieltsWriteScore?: string;
+
+    tofelScore?: string;
+    tofelListScore?: string;
+    tofelSpeakScore?: string;
+    tofelReadScore?: string;
+    tofelWriteScore?: string;
+
+    duolingoScore?: string;
+    role?: string;
+
 }
 

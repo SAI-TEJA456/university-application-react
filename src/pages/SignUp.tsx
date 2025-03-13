@@ -1,10 +1,17 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useState} from "react";
+
+import {useContext, useState} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
+import {UserContext} from "../components/UserContext.tsx";
+import {useNavigate} from "react-router-dom";
+import {IUser} from "../components/UserContext.tsx"
 // created by Liesetty
 //Sign up validation without Libraries
 //we are using Regex = Regular Expression used for validate input, search, replace text, extract useful data
+
+//March 12 here now redirecting user to respective dashboards
+
 interface IValidationErrors{
     firstName?: string;
         middleName?: string;//can be null
@@ -33,6 +40,12 @@ function SignUp() {
         specialChar: false,
         number: false,
     })
+
+
+    //for storing user details on sign up
+    const {updateUser} = useContext(UserContext) || {};
+    const navigate = useNavigate();
+
 
     // create state for errors
     const [errors, setErrors] = useState<IValidationErrors>({
@@ -110,11 +123,31 @@ function SignUp() {
             //as we need to send data to server lets create post request
             //"/api/user" is url we create for user table
             const response = await api.post("/api/users", formData)//api is the one we created with base url/server url
-            alert("Signed up successfully");//we need redirect to user or representative page
+
+            //checking on successful request which status i am receiving
+            console.log(response.status);
+            if (response.status === 201){
+                const userData : IUser = {
+                    firstName: formData.firstName,
+                    middleName: formData.middleName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    role: formData.role
+                }
+                //update user as it need object
+                updateUser?.(userData);
+                //now we need to store data in local storage
+                localStorage.setItem("user", JSON.stringify(userData));
+                //now we need to redirect to respective dashboard
+                console.log("Redirecting to:",formData.role === "Student" ? "/student-dashboard" : "/representative-dashboard")
+                navigate(formData.role === "Student" ? "/student-dashboard" : "/representative-dashboard");
+            }
+            // alert("Signed up successfully");//we need redirect to user or representative page
             console.log(response.data);// just check which data sent
         } catch (err){
             const axiosError = err as AxiosError<{message?: string}>;
-            console.log("Sign Up Error", err);
+            console.log("Sign Up Error", axiosError);
+
             if(axiosError.response){
                 setErrors((validationErrors) ={...validationErrors, email: axiosError.response.data.message});
             }else{

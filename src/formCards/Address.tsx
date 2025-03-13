@@ -46,6 +46,8 @@ function Address({formData, handleChange, errors}:
                     </Col>
                 </Row>
                 <Row>
+
+                    {/*country*/}
                     <Col md={6}>
                         <Form.Group className="mb-3">
                             <Form.Label>Country</Form.Label>
@@ -53,6 +55,8 @@ function Address({formData, handleChange, errors}:
                             {errors.country && <span className="text-danger">{errors.country}</span> }
                         </Form.Group>
                     </Col>
+
+                    {/*pin code*/}
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Pin code</Form.Label>
