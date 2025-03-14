@@ -70,20 +70,16 @@
 
 import {createContext, useState} from "react";
 import * as React from "react";
+import {IUserData} from "../types/FormDataTypes.ts";
 
-// define what data to be stored and data type for typeSafety(may add data in future)
-export interface IUser {
-    firstName : string;
-    middleName? : string;
-    lastName : string;
-    email: string;
-    role: string;
-}
+// define what data to be stored and data type for typeSafety(may add data in future) in FormDataTypes
+
 
 //acts like this user
 interface UserContextType {
-    user: IUser | null; //holds specific user's data who logged in
-    updateUser: (user: IUser | null) => void; //updates user data after login or sign out
+    user: IUserData | null; //holds specific user's data who logged in
+    updateUser: (user: IUserData) => void; //updates user data after login or sign out
+    clearData: () => void;
 }
 
 // use practice notes
@@ -100,12 +96,14 @@ export const UserContext = createContext<UserContextType | null>(null); //create
 //state for show user details where ever we fetech.
 export function UserProvider({children} : {children: React.ReactNode}){
     //storing data in local storage with useState
-    const [user, setUser] = useState<IUser | null>(() =>{
-        return JSON.parse(localStorage.getItem("user") || "null"); //max storage 5mb
+    const [user, setUser] = useState<IUserData | null>(() =>{
+        const userStoredData = localStorage.getItem("user"); //max storage 5mb
+        // for storing data only if it is not null if null it won't store
+        return userStoredData ? JSON.parse(userStoredData) as IUserData : null;
     });
 
     //Update both state and local storage
-    const updateUser = (newUser : IUser | null) =>{
+    const updateUser = (newUser : IUserData) =>{
         setUser(newUser);
         //checking if someone trying to log in
         if (newUser){
@@ -116,6 +114,12 @@ export function UserProvider({children} : {children: React.ReactNode}){
         }
     };
 
+    //adding a clearData function to clear when user want to from local storage
+    const clearData = () =>{
+        setUser(null);
+        localStorage.removeItem("user");
+    };
+
     return(
         // Here we are allowing UserProvider to return its methods to all components.
         // .Provider is a property of UserContext, and it is a React component that wraps other components to share data globally.
@@ -124,7 +128,7 @@ export function UserProvider({children} : {children: React.ReactNode}){
         // After running its methods, it returns values as props to all child components of `App`.
         // UserContext.Provider is a React built-in component for wrapping other components to share data.
 
-        <UserContext.Provider value={{user, updateUser}}>
+        <UserContext.Provider value={{user, updateUser, clearData}}>
             {children}
         </UserContext.Provider>)
 }

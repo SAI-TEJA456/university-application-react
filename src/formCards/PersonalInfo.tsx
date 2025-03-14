@@ -1,5 +1,5 @@
 import { Card, Form} from "react-bootstrap";
-import {IStudentFormData} from "../types/FormDataTypes.ts"
+import {IGeneral} from "../types/FormDataTypes.ts"
 import * as React from "react";
 
 // Created by Liesetty
@@ -11,16 +11,19 @@ import * as React from "react";
 //most of the validations are also will happen there
 
 
+
 // here in params of personalInfo we are send interface declaration as objects
 function PersonalInfo(
     {   formData,
         handleChange,
         errors}: {
-        formData: IStudentFormData;
+        formData: IGeneral;
         handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
         //partial will let typescript know that errors will take only few inputs from interface
-        errors: Partial<IStudentFormData>;
+        errors: Partial<IGeneral>;
     }) {
+
+
     return (
         <Card className="mt-3 p-3">
             <h4 className="text-center"> Personal Information</h4>
@@ -28,28 +31,32 @@ function PersonalInfo(
                 {/*First name we will keep it as readonly as we get this data from student dashboard*/}
                 <Form.Group className="mb-3">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text" value={formData.firstName} readOnly />
+                    <Form.Control type="text" value={formData.firstName} name="firstName" onChange={handleChange} />
+                    {errors.firstName && <span className="text-danger">{errors.firstName}</span>}
                 </Form.Group>
                 {/*Middle Name we will keep it as readonly as we get this data from student dashboard*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Middle Name</Form.Label>
-                    <Form.Control type="text" value={formData.middleName} onChange={handleChange} />
+                    <Form.Control type="text" value={formData.middleName}  name="middleName" onChange={handleChange} />
+                    {errors.middleName && <span className="text-danger">{errors.middleName}</span>}
                 </Form.Group>
             {/*    Last Name we will keep it as readonly as we get this data from student dashboard*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text" value={formData.lastName} readOnly />
+                    <Form.Control type="text" value={formData.lastName} name="lastName" onChange={handleChange} />
+                    {errors.lastName && <span className="text-danger">{errors.lastName}</span>}
                 </Form.Group>
             {/*    Email we will keep it as readonly as we get this data from student dashboard*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="text" value={formData.email} readOnly/>
+                    {errors.email && <span className="text-danger">{errors.email}</span>}
                 </Form.Group>
             {/*    Gender*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Gender</Form.Label>
                     <Form.Check inline type="radio" label="Male" name="gender" value="male" onChange={handleChange} />
-                    <Form.Check inline type="radio" label="Male" name="gender" value="female" onChange={handleChange} />
+                    <Form.Check inline type="radio" label="Female" name="gender" value="female" onChange={handleChange} />
                     {errors.gender && <span className="text-danger">{errors.gender}</span>}
                 </Form.Group>
             {/*    Date of Birth*/}
@@ -63,7 +70,7 @@ function PersonalInfo(
                     <Form.Label>Martial Status</Form.Label>
                     <Form.Check inline type="radio" label="Married" name="martialStatus" value="married" onChange={handleChange} />
                     <Form.Check inline type="radio" label="Unmarried" name="martialStatus" value="unmarried" onChange={handleChange} />
-                    {errors.martialStatus && <span className="text-danger">{errors.martialStatus}</span>}
+                    {errors.maritalStatus && <span className="text-danger">{errors.maritalStatus}</span>}
                 </Form.Group>
             {/*    Moblie Number*/}
                 <Form.Group className="mb-3">

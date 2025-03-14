@@ -2,7 +2,7 @@
 // Created by Liesetty
 //form for student background info
 import { Card, Form} from "react-bootstrap";
-import {IStudentFormData} from "../types/FormDataTypes.ts";
+import {IGeneral} from "../types/FormDataTypes.ts";
 import * as React from "react";
 
 function BackgorundInfo(
@@ -11,9 +11,9 @@ function BackgorundInfo(
         handleChange,
         errors,
     } :{
-        formData: IStudentFormData;
+        formData: IGeneral;
         handleChange: (e : React.ChangeEvent<HTMLInputElement>) => void;
-        errors: Partial<IStudentFormData>;
+        errors: Partial<IGeneral>;
     }
 ) {
     return (

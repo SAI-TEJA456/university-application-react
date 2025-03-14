@@ -18,7 +18,7 @@ import {FaUserGraduate} from "react-icons/fa";
 function NavigationBar() {
     //here we are using this to disable sign button and show icon+name by acces UserContext data
     // useContext(UserContext) means UserContext retieves user data and update function provided by userProvider
-    const {user, updateUser} = useContext(UserContext) || {};
+    const {user, clearData} = useContext(UserContext) || {};
     //it is a react-router built function,used to navigate between
     // components by the routes declared in App component
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ function NavigationBar() {
     //so when signout button is clicked by user this function invokes
     //this function will pass a null value which clear the localstorage
     const handleSignOut = () =>{
-        updateUser?.(null);
+        clearData?.(); //optional because if not data not need this function to invoke
         //navigate to home route
         navigate("/");
     }

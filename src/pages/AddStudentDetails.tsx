@@ -1,13 +1,14 @@
 import {Button, Container, Form} from "react-bootstrap";
 import PersonalInfo from "../formCards/PersonalInfo.tsx";
 import Address from "../formCards/Address.tsx";
-import {useState} from "react";
-import {IStudentFormData} from "../types/FormDataTypes.ts";
+import {useContext, useState} from "react";
+import {IEducationDel, IGeneral, IStudentTestScores} from "../types/FormDataTypes.ts";
 import * as React from "react";
 import TestScores from "../formCards/TestScores.tsx";
 
 import EduDetails from "../formCards/EduDetails.tsx";
 import BackgorundInfo from "../formCards/BackgorundInfo.tsx";
+import {UserContext} from "../components/UserContext.tsx";
 
 
 //Created by Liesetty
@@ -16,53 +17,19 @@ import BackgorundInfo from "../formCards/BackgorundInfo.tsx";
 //we are handling state change of those cards as parent-child relation
 //we validate all cards data here and submit api request
 
+interface IStudentFormData extends IGeneral, IEducationDel, IStudentTestScores{}
+
 function AddStudentDetails() {
+
+    //using user context so that i can get data related to user and display on readonly fields
+    const {user} = useContext(UserContext) || {};
+
+
     // useState for form data
     const [formData, setFormData]= useState<IStudentFormData>({
+       ...user
+    } as IStudentFormData);
 
-        bTechGpa: "",
-        bTechPercent: "",
-        duolingoScore: "",
-        greQuantScore: "",
-        greScore: "",
-        greVerbalScore: "",
-        ieltsListScore: "",
-        ieltsReadScore: "",
-        ieltsScore: "",
-        ieltsSpeakScore: "",
-        ieltsWriteScore: "",
-        interGpa: "",
-        interPercent: "",
-        middleName: "",
-        numBTechBackLogs: "",
-        numIntBackLogs: "",
-        tenthGpa: "",
-        tenthPercent: "",
-        tofelListScore: "",
-        tofelReadScore: "",
-        tofelScore: "",
-        tofelSpeakScore: "",
-        tofelWriteScore: "",
-
-        firstName: "",
-        lastName: "",
-        gender: "",
-        email: "",
-        dob: "",
-        martialStatus:"",
-        mobile: "",
-        addressLine: "",
-        city: "",
-        country: "",
-        pincode: "",
-        state: "",
-        citizenship: "",
-
-        fatherMobile: "",
-        motherMobile: "",
-        nationality: ""
-
-    });
 
     // useState for errors
     const [errors, setErrors] = useState<Partial<IStudentFormData>>({})
@@ -84,7 +51,7 @@ function AddStudentDetails() {
         //each validation send error message is passed to a key with useState we change state of the error message tag
         setErrors({...errors, [name]: errorMsg});
         //assigning formData after that
-        setFormData({...formData,[name]: value});
+        setFormData((prevData) =>({...prevData,[name]: value}));
 
     };
 
@@ -93,6 +60,9 @@ function AddStudentDetails() {
         let errorMsg = "";
 
         // validation for PersonalInfo
+        if (name === "firstName" && !value) errorMsg = "Please Enter you First Name";
+        if (name === "lastName" && !value) errorMsg = "Please Enter you Last Name";
+        if (name === "middleName" && !value) errorMsg = "Please Enter you Middle Name";
         if (name === "gender" && !value) errorMsg = "Please select a gender"; //gender validation
 
         //DOB validation keep minimum age to 20 consider even 3 three skip classes according my age for masters
@@ -106,7 +76,7 @@ function AddStudentDetails() {
                 errorMsg = "Date of birth cannot be today or a future date.";
             } else if (userDate >= minDate) {
                 errorMsg = "You must be at least 20 years old to apply for a Master's.";
-            }else {
+            }else if(!userDate) {
                 errorMsg = "Please enter your Date of Birth";
             }
         }
@@ -214,26 +184,9 @@ function AddStudentDetails() {
 
         const validationErrors: Partial<IStudentFormData> = {};
 
-        const reuiredFields: (keyof IStudentFormData)[] = [
-        "gender",
-        "dob",
-        "martialStatus",
-        "mobile",
-        "addressLine",
-        "city",
-        "state",
-        "country",
-        "pincode",
-        "nationality",
-        "citizenship",
-        "tenthGpa",
-        "interGpa",
-        "numIntBackLogs",
-        "bTechGpa",
-        "numBTechBackLogs",
-        ];
+        const requiredFields: (keyof IStudentFormData)[] = [];
 
-        reuiredFields.forEach(key =>{
+        requiredFields.forEach(key =>{
             const errMsg = userInputValidation(key, formData[key] || "");
             if (errMsg){
                 validationErrors[key] = errMsg;

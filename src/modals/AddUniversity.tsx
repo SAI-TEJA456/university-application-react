@@ -5,6 +5,7 @@ function AddUniversity() {
     return (
         <>
         {/*about college some description*/}
+            <h1>Under Development</h1>
         </>
     )
 }

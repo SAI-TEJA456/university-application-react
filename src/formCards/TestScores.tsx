@@ -5,7 +5,7 @@
 //after searching, changing and planing all the scores requirements i finalized this form
 //avoided multiple unnecessary commits
 import { Card, Col, Container, Form, Row} from "react-bootstrap";
-import {IStudentFormData} from "../types/FormDataTypes.ts";
+import { IStudentTestScores} from "../types/FormDataTypes.ts";
 import * as React from "react";
 //Here
 function TestScores(
@@ -14,9 +14,9 @@ function TestScores(
         handleChange,
         errors,
     } :{
-        formData: IStudentFormData;
+        formData: IStudentTestScores;
         handleChange: (e : React.ChangeEvent<HTMLInputElement>) => void;
-        errors: Partial<IStudentFormData>;
+        errors: Partial<IStudentTestScores>;
     }
 ){
     return (

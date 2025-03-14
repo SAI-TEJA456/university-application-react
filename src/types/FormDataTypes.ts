@@ -1,11 +1,39 @@
-export interface IStudentFormData{
+// Created by liesetty
+/*
+* Interface = one interface can be used but all the components doesn't need all the data of one interface
+*               and some caused required troubles.
+*              so the best approach is to use inheritance - extends keyword allowing to use multiple interfaces.
+* Typescript =   interfaces does not support inheritance exactly like classes but using extends keyword we can achieve it
+*
+*Inheritance = parent -child
+* Encapsulation - grouping related data together while hiding unnecessary details.
+* Polymorphism = allows a single function, interface, or class to handle different data structures.
+*                   using Partial<> enables flexible data management.
+* Composition = we compose smaller, reusable interfaces
+* */
+
+//first user related data should be base used by lot of components
+
+
+export interface IUserData{
     firstName:string;
     middleName?:string;
     lastName:string;
     email:string;
+    role: "Student" | "Representative" | string;
+}
+
+export interface IAuthData{
+    password: string
+    confirmPassword?: string //sign In dont need
+}
+
+export interface ISignUp extends IUserData, IAuthData{}
+
+export interface IGeneral extends IUserData{
     gender:string;
     dob:string;
-    martialStatus:string;
+    maritalStatus:string;
     mobile:string;
     addressLine: string;
     city: string;
@@ -18,7 +46,9 @@ export interface IStudentFormData{
     // something? means an optional field
     fatherMobile?: string;
     motherMobile?: string;
+}
 
+export interface IEducationDel extends IUserData{
     tenthPercent?: string;
     tenthGpa: string;
 
@@ -29,9 +59,9 @@ export interface IStudentFormData{
     bTechPercent?: string;
     bTechGpa: string;
     numBTechBackLogs: string;
+}
 
-
-
+export interface IStudentTestScores extends IUserData{
     greScore?: string;
     greVerbalScore?: string;
     greQuantScore?: string;
@@ -49,7 +79,6 @@ export interface IStudentFormData{
     tofelWriteScore?: string;
 
     duolingoScore?: string;
-    role?: string;
-
 }
+
 

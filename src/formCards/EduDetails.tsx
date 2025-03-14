@@ -4,7 +4,7 @@
 
 import { Card, Col, Form, Row} from "react-bootstrap";
 import * as React from "react";
-import {IStudentFormData} from "../types/FormDataTypes.ts";
+import {IEducationDel} from "../types/FormDataTypes.ts";
 // 10th percentage and gpa*/}
 //                 {/*    inter percentage and gpa , number of back logos*/}
 //                 {/*    b tech
@@ -14,9 +14,9 @@ function EduDetails(
         handleChange,
         errors
     } :{
-        formData : IStudentFormData,
+        formData : IEducationDel,
         handleChange: (e : React.ChangeEvent<HTMLInputElement>)=>void;
-        errors: Partial<IStudentFormData>
+        errors: Partial<IEducationDel>
     }
 ){
     return (
