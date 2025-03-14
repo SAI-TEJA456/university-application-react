@@ -81,4 +81,33 @@ export interface IStudentTestScores extends IUserData{
     duolingoScore?: string;
 }
 
+export interface IUniversityGeneral{
+    universityImages: string;
+    universityLogoImg: string;
+    universityName: string;
+    universityAbout:string;
+    uniState: string;
+    uniCountry:string;
+    universityUrl: string;
+}
+
+export interface ICourseDetails{
+    courseName: string;
+    courseDes: string;
+    anualTutionFee: string;
+    totalTutioFee: string;
+    addmissionFee: string;
+    tofelScoreOverAll: string;
+    ieltsScoreOverAll: string;
+    greScoreOverAll: string;
+    duolingoOverAll: string;
+}
+
+export interface  applicationProcess{
+    applicationDes: string;
+    courseUrl: string;
+}
+
+
+
 
