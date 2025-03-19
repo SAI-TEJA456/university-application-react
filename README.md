@@ -48,3 +48,47 @@ export default tseslint.config({
   },
 })
 ```
+
+
+Here writing what I have research for collecting student details and representative to university details
+
+and also later how they used in the projects
+students were easy as i was have previous data for company projects.
+
+consider in university details
+university 
+images - for UI for student and also others who visit the page
+
+ logo img - smae for ui
+
+name
+
+about description
+
+state, country
+
+url for university home page.
+
+university type
+
+course details
+
+name
+
+description
+
+anaula tution fee
+
+totain tution fee
+
+addmision fee
+
+
+scores required
+
+application des
+
+how to apply
+
+course url
+

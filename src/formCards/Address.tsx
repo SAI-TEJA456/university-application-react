@@ -2,7 +2,7 @@
 // Created by Liesetty
 //form for address
 import {Card, Col, Form, Row} from "react-bootstrap";
-import{ IStudentFormData} from "../types/FormDataTypes.ts";
+import {IGeneral} from "../types/FormDataTypes.ts";
 import * as React from "react";
 
 {/*address line
@@ -12,9 +12,9 @@ import * as React from "react";
 // lets do same as Personal info
 function Address({formData, handleChange, errors}:
     {
-        formData : IStudentFormData,
+        formData : IGeneral,
         handleChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
-        errors: Partial<IStudentFormData>
+        errors: Partial<IGeneral>
     }
 ) {
     return (
