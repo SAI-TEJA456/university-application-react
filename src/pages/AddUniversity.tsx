@@ -12,8 +12,8 @@ import {
     IUniversityGeneral
 } from "../types/FormDataTypes.ts";
 // import { useNavigate} from "react-router-dom";
-import AddCourse from "./AddCourse.tsx";
-import EduDetails from "./EduDetails.tsx";
+import AddCourse from "../formCards/AddCourse.tsx";
+import EduDetails from "../formCards/EduDetails.tsx";
 
 interface IAddUniversity extends IUniversityGeneral, ICourseDetails, IApplicationProcess, IStudentTestScores, IEducationDel, IApplicationProcess {}
 function AddUniversity() {

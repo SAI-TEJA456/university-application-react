@@ -20,7 +20,7 @@ function Address({formData, handleChange, errors}:
     return (
         <Card className="mt-3 p-3">
             <h4 className="text-center">Address Details</h4>
-            <Form className="mb-3">
+            <div className="mb-3">
             {/*    Address line*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Address Line</Form.Label>
@@ -65,7 +65,7 @@ function Address({formData, handleChange, errors}:
                         </Form.Group>
                     </Col>
                 </Row>
-            </Form>
+            </div>
         </Card>
     )
 }

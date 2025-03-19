@@ -11,7 +11,7 @@ import SignUp from "./pages/SignUp.tsx";
 import AddStudentDetails from "./pages/AddStudentDetails.tsx";
 import StudentDashboard from "./pages/StudentDashboard.tsx";
 import RepresentativeDashBoard from "./pages/RepresentativeDashBoard.tsx";
-import AddUniversity from "./formCards/AddUniversity.tsx";
+import AddUniversity from "./pages/AddUniversity.tsx";
 import AddCourse from "./formCards/AddCourse.tsx";
 // App is component where all components or the web application merge and form web application
 function App() {

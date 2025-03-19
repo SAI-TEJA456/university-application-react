@@ -20,7 +20,7 @@ function BackgorundInfo(
 
         <Card className="mt-3 p-3">
             <h4 className="text-center">Background Information</h4>
-            <Form>
+            <div>
                 {/*nationality*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Nationality</Form.Label>
@@ -51,7 +51,7 @@ function BackgorundInfo(
 
                     {errors.motherMobile && <span className="text-danger">{errors.motherMobile}</span> }
                 </Form.Group>
-            </Form>
+            </div>
         </Card>
     )
 }
