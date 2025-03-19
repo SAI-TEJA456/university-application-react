@@ -5,21 +5,35 @@ import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
 import {UserContext} from "../components/UserContext.tsx";
 import {useNavigate} from "react-router-dom";
-import {IAuthData, IUserData} from "../types/FormDataTypes.ts";
+import {IUser} from "../components/UserContext.tsx"
 // created by Liesetty
 //Sign up validation without Libraries
 //we are using Regex = Regular Expression used for validate input, search, replace text, extract useful data
 
 //March 12 here now redirecting user to respective dashboards
-export interface ISignUp extends IUserData, IAuthData {}
 
+interface IValidationErrors{
+    firstName?: string;
+        middleName?: string;//can be null
+        lastName?: string;
+        email?: string;
+        password?: string;
+        confirmPassword?: string;
+        role?:  string;
+}
 
 function SignUp() {
     //create state for input
-    const [formData, setFormData] = useState<ISignUp>({
+    const [formData, setFormData] = useState({
         // object creation
-
-    } as ISignUp );
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: ""
+    });
 
     const [passwordValidation, setPasswordValidation] = useState({
         minLength: false,
@@ -34,8 +48,15 @@ function SignUp() {
 
 
     // create state for errors
-    const [errors, setErrors] = useState<ISignUp>({
-    } as ISignUp);
+    const [errors, setErrors] = useState<IValidationErrors>({
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: ""
+    });
 
     // loading state have to be used so that some API requests take some time to receive data
     const [loading, setLoading] = useState(false);
@@ -77,7 +98,7 @@ function SignUp() {
     //anything with ":" is object notation
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        let validationErrors: ISignUp= {} as ISignUp
+        let validationErrors: IValidationErrors= {}
 
         // here all if conditons store errors message in a object
         if(!formData.firstName) validationErrors.firstName = "First name is required";
@@ -106,7 +127,13 @@ function SignUp() {
             //checking on successful request which status i am receiving
             console.log(response.status);
             if (response.status === 201){
-                const userData : IUserData = {} as IUserData;
+                const userData : IUser = {
+                    firstName: formData.firstName,
+                    middleName: formData.middleName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    role: formData.role
+                }
                 //update user as it need object
                 updateUser?.(userData);
                 //now we need to store data in local storage
@@ -122,7 +149,7 @@ function SignUp() {
             console.log("Sign Up Error", axiosError);
 
             if(axiosError.response){
-                setErrors((validationErrors) ={...validationErrors, email: axiosError.response.data.message || ""});
+                setErrors((validationErrors) ={...validationErrors, email: axiosError.response.data.message});
             }else{
                 alert("Something went wrong, Please try again later.");
             }

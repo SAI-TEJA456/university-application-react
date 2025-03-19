@@ -11,14 +11,23 @@ node_modules
 dist
 dist-ssr
 *.local
+build/
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+*.iml
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+Thumbs.db
+
+#Depedency lock file
+oackage-lock.json
+
+#Typescript cache
+tsconfig.tsbuildinfo

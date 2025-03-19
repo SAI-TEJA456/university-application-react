@@ -11,7 +11,7 @@ import * as yup from "yup";
 import {useState, useEffect, useContext} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
-import {UserContext} from "../components/UserContext.tsx";
+import {IUser, UserContext} from "../components/UserContext.tsx";
 
 //form data structure
 interface IFormData {
@@ -151,7 +151,7 @@ function SignInModal(
             if(response.status === 200){
                 // here we start storing data received from api request
                 console.log("What data I am receiving?", response.data);
-                const userData = response.data;
+                const userData : IUser = response.data;
 
                 //updating user data in useContext declared
                 updateUser?.(userData);
