@@ -27,7 +27,7 @@ function TestScores(
                     {/*Gre Score*/}
                     <Card className="mt-3 p-3>">
                         <h4 className="text-center">GRE Scores</h4>
-                        <Form>
+                        <div>
                             <Form.Group className="mb-3">
                                 <Form.Label>Overall Score</Form.Label>
 
@@ -58,14 +58,14 @@ function TestScores(
                                     </Form.Group>
                                 </Col>
                             </Row>
-                        </Form>
+                        </div>
                     </Card>
                 </Col>
                 {/*IELTS Score*/}
                 <Col md={6}>
                     <Card className="mt-3 p-3">
                         <h4 className="text-center">IELTS Score</h4>
-                        <Form>
+                        <div>
                             <Form.Group className="mb-3">
                                 <Form.Label>Over all</Form.Label>
 
@@ -116,7 +116,7 @@ function TestScores(
                                     </Form.Group>
                                 </Col>
                             </Row>
-                        </Form>
+                        </div>
                     </Card>
                 </Col>
             </Row>
@@ -126,7 +126,7 @@ function TestScores(
                 <Col md={6}>
                     <Card className="mt-3 p-3">
                         <h4 className="text-center">TOFEL Score</h4>
-                        <Form>
+                        <div>
                             <Form.Group className="mb-3">
                                 <Form.Label>Over all</Form.Label>
 
@@ -177,14 +177,14 @@ function TestScores(
                                     </Form.Group>
                                 </Col>
                             </Row>
-                        </Form>
+                        </div>
                     </Card>
                 </Col>
                 {/*Duolingo*/}
                 <Col md={6}>
                     <Card className="mt-3 p-3">
                         <h4 className="text-center">Duolingo Score</h4>
-                        <Form>
+                        <div>
                             <Form.Group className="mb-3">
                                 <Form.Label>Over all</Form.Label>
 
@@ -193,7 +193,7 @@ function TestScores(
                                 {errors.duolingoScore && <span className="text-danger">{errors.duolingoScore}</span> }
                             </Form.Group>
                             {/*    individual score are not required for university*/}
-                        </Form>
+                        </div>
                     </Card>
                 </Col>
             </Row>

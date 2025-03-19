@@ -28,7 +28,6 @@ export interface IAuthData{
     confirmPassword?: string //sign In dont need
 }
 
-export interface ISignUp extends IUserData, IAuthData{}
 
 export interface IGeneral extends IUserData{
     gender:string;
@@ -81,31 +80,35 @@ export interface IStudentTestScores extends IUserData{
     duolingoScore?: string;
 }
 
-export interface IUniversityGeneral{
-    universityImages: string;
+export interface IUniversityGeneral {
+    universityAbout: string;
+    universityCountry: string;
+    universityImages:  File[] ;
     universityLogoImg: string;
     universityName: string;
-    universityAbout:string;
-    uniState: string;
-    uniCountry:string;
-    universityUrl: string;
+    universityState: string;
+    universityType: "Public" | "Private";
+    universityUrl: string
+    courseData?: ICourseDetails[];
 }
 
 export interface ICourseDetails{
     courseName: string;
-    courseDes: string;
-    anualTutionFee: string;
-    totalTutioFee: string;
-    addmissionFee: string;
-    tofelScoreOverAll: string;
-    ieltsScoreOverAll: string;
-    greScoreOverAll: string;
-    duolingoOverAll: string;
+    courseDescription: string;
+    annualTuitionFee: string;
+    totalTuitionFee: string;
+    courseDuration?: string;
+    // //linking test scores
+    // testScoreRequirements: IStudentTestScores;
+    // educationRequirements?: Partial<IEducationDel>;
+    // courseApplicationRequire: IApplicationProcess;
 }
 
-export interface  applicationProcess{
+export interface  IApplicationProcess{
     applicationDes: string;
     courseUrl: string;
+    applicationDeadline: string;
+    applicationFee?: string;
 }
 
 
