@@ -27,7 +27,7 @@ function PersonalInfo(
     return (
         <Card className="mt-3 p-3">
             <h4 className="text-center"> Personal Information</h4>
-            <Form className="mb-3">
+            <div className="mb-3">
                 {/*First name we will keep it as readonly as we get this data from student dashboard*/}
                 <Form.Group className="mb-3">
                     <Form.Label>First Name</Form.Label>
@@ -80,7 +80,7 @@ function PersonalInfo(
 
                     {errors.mobile && <span className="text-danger">{errors.mobile}</span> }
                 </Form.Group>
-            </Form>
+            </div>
         </Card>
     )
 }
