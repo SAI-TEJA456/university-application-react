@@ -110,7 +110,3 @@ export interface  IApplicationProcess{
     applicationDeadline: string;
     applicationFee?: string;
 }
-
-
-
-
