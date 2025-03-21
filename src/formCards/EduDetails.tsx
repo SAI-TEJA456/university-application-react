@@ -30,13 +30,13 @@ function EduDetails(
                         {/*percentage*/}
                         <Form.Group className="mb-3">
                             <Form.Label>Percentage (Optional)</Form.Label>
-                            <Form.Control type="text" name="tenthPercent" value={formData.tenthPercent} onChange={handleChange}/>
+                            <Form.Control type="text" name="tenthPercent" value={formData.tenthPercent ?? ""} onChange={handleChange}/>
                             {errors.tenthPercent && <span className="text-danger">{errors.tenthPercent}</span> }
                         </Form.Group>
                         {/*Gpa*/}
                         <Form.Group className="mb-3">
                             <Form.Label>GPA</Form.Label>
-                            <Form.Control type="text" name="tenthGpa" value={formData.tenthGpa ?? ""} onChange={handleChange} required/>
+                            <Form.Control type="text" name="tenthGpa" value={formData.tenthGpa ?? ""} onChange={handleChange} />
                             {errors.tenthGpa && <span className="text-danger">{errors.tenthGpa}</span> }
                         </Form.Group>
                     </div>
@@ -54,13 +54,13 @@ function EduDetails(
                         {/*Gpa*/}
                         <Form.Group className="mb-3">
                             <Form.Label>GPA</Form.Label>
-                            <Form.Control type="text" name="interGpa" value={formData.interGpa ?? ""} onChange={handleChange} required/>
+                            <Form.Control type="text" name="interGpa" value={formData.interGpa ?? ""} onChange={handleChange} />
                             {errors.interGpa && <span className="text-danger">{errors.interGpa}</span> }
                         </Form.Group>
                     {/*    Number of BackLogs*/}
                         <Form.Group className="mb-3">
                             <Form.Label>Number of BackLogs</Form.Label>
-                            <Form.Control type="text" name="numIntBackLogs" value={formData.numIntBackLogs ?? ""} onChange={handleChange} required/>
+                            <Form.Control type="text" name="numIntBackLogs" value={formData.numIntBackLogs ?? ""} onChange={handleChange} />
                             {errors.numIntBackLogs && <span className="text-danger">{errors.numIntBackLogs}</span> }
                         </Form.Group>
                     </div>
@@ -77,13 +77,13 @@ function EduDetails(
                         {/*Gpa*/}
                         <Form.Group className="mb-3">
                             <Form.Label>GPA</Form.Label>
-                            <Form.Control type="text" name="bTechGpa" value={formData.bTechGpa ?? ""} onChange={handleChange} required/>
+                            <Form.Control type="text" name="bTechGpa" value={formData.bTechGpa ?? ""} onChange={handleChange} />
                             {errors.bTechGpa && <span className="text-danger">{errors.bTechGpa}</span> }
                         </Form.Group>
                         {/*    Number of BackLogs*/}
                         <Form.Group className="mb-3">
                             <Form.Label>Number of BackLogs</Form.Label>
-                            <Form.Control type="text" name="numBTechBackLogs" value={formData.numBTechBackLogs ?? ""} onChange={handleChange} required/>
+                            <Form.Control type="text" name="numBTechBackLogs" value={formData.numBTechBackLogs ?? ""} onChange={handleChange} />
                             {errors.numBTechBackLogs && <span className="text-danger">{errors.numBTechBackLogs}</span> }
                         </Form.Group>
                     </div>
