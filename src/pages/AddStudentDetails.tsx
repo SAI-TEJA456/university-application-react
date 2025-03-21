@@ -26,6 +26,7 @@ function AddStudentDetails() {
 
 
     // useState for form data
+
     const [formData, setFormData]= useState<IStudentFormData>({
        ...user
     } as IStudentFormData);
@@ -81,7 +82,7 @@ function AddStudentDetails() {
             }
         }
 
-        if (name === "martialStatus" && !value) errorMsg = "Please select a Martial Status"; //martialStatus validation
+        if (name === "maritalStatus" && !value) errorMsg = "Please select a Martial Status"; //martialStatus validation
 
         if (name === "mobile" && !/^\d{10}$/.test(value))  errorMsg = "Please enter a Valid Mobile number"; //mobile number validation here we used regex validation where .test tests the value has 10digit or not
 
@@ -108,7 +109,7 @@ function AddStudentDetails() {
 
         if (name === "fatherMobile" && !/^[0-9]{10}$/.test(value)) errorMsg = "Please Enter a Valid Mobile Number";
 
-        if (name === "motherMobile" && !/^[0-9]{10}$$/.test(value)) errorMsg = "Please Enter a Valid Mobile Number";
+        if (name === "motherMobile" && !/^[0-9]{10}$/.test(value) && !value) errorMsg = "Please Enter a Valid Mobile Number";
 
 
 
@@ -181,15 +182,20 @@ function AddStudentDetails() {
             alert("Please Enter All required fields");
             return;
         }
-
         const validationErrors: Partial<IStudentFormData> = {};
+        console.log(formData)
 
-        const requiredFields: (keyof IStudentFormData)[] = [];
+        const formElements = e.currentTarget.querySelectorAll("input" )
+
+        const requiredFields = Array.from(formElements).map((e) => (e as HTMLInputElement).name).filter((name) => name);
+        console.log(requiredFields);
+
 
         requiredFields.forEach(key =>{
-            const errMsg = userInputValidation(key, formData[key] || "");
+            const keyType = key as keyof IStudentFormData;
+            const errMsg = userInputValidation(key, formData[keyType] || "");
             if (errMsg){
-                validationErrors[key] = errMsg;
+                validationErrors[keyType] = errMsg;
             }
         });
 
@@ -211,7 +217,6 @@ function AddStudentDetails() {
             <h2 className="text-center">Add Student Details</h2>
             <Form onSubmit={handleSubmit}>
                 <PersonalInfo formData={formData} handleChange={handleChange} errors={errors} />
-
                 <EduDetails formData={formData} handleChange={handleChange} errors={errors} />
                 <TestScores formData={formData} handleChange={handleChange} errors={errors}/>
                 <Address formData={formData} handleChange={handleChange} errors={errors} />

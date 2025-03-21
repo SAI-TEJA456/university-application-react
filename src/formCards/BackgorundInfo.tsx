@@ -24,14 +24,14 @@ function BackgorundInfo(
                 {/*nationality*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Nationality</Form.Label>
-                    <Form.Control type="text" name="nationality" value={formData.nationality} onChange={handleChange} required/>
+                    <Form.Control type="text" name="nationality" value={formData.nationality ?? ""} onChange={handleChange} />
                     {errors.nationality && <span className="text-danger">{errors.nationality}</span> }
                 </Form.Group>
                 {/*citizenship*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Citizenship</Form.Label>
 
-                    <Form.Control type="text" name="citizenship" value={formData.citizenship} onChange={handleChange} required/>
+                    <Form.Control type="text" name="citizenship" value={formData.citizenship ?? ""} onChange={handleChange} />
 
                     {errors.citizenship && <span className="text-danger">{errors.citizenship}</span> }
                 </Form.Group>
@@ -39,7 +39,7 @@ function BackgorundInfo(
                 <Form.Group className="mb-3">
                     <Form.Label>Father Mobile Number (optional)</Form.Label>
 
-                    <Form.Control type="tel" name="fatherMobile" value={formData.fatherMobile} onChange={handleChange}/>
+                    <Form.Control type="tel" name="fatherMobile" value={formData.fatherMobile ?? ""} onChange={handleChange}/>
                     {errors.fatherMobile && <span className="text-danger">{errors.fatherMobile}</span> }
 
                 </Form.Group>
@@ -47,7 +47,7 @@ function BackgorundInfo(
                 <Form.Group className="mb-3">
                     <Form.Label>Mother Mobile Number (optional)</Form.Label>
 
-                    <Form.Control type="tel" name="motherMobile" value={formData.motherMobile} onChange={handleChange}/>
+                    <Form.Control type="tel" name="motherMobile" value={formData.motherMobile ?? ""} onChange={handleChange}/>
 
                     {errors.motherMobile && <span className="text-danger">{errors.motherMobile}</span> }
                 </Form.Group>

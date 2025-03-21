@@ -24,7 +24,7 @@ function Address({formData, handleChange, errors}:
             {/*    Address line*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Address Line</Form.Label>
-                    <Form.Control type="text" name="addressLine" value={formData.addressLine} onChange={handleChange} />
+                    <Form.Control type="text" name="addressLine" value={formData.addressLine ?? ""} onChange={handleChange} />
                     {errors.addressLine && <span className="text-danger">{errors.addressLine}</span> }
                 </Form.Group>
             {/*    City*/}
@@ -32,7 +32,7 @@ function Address({formData, handleChange, errors}:
                     <Col md={6}>
                         <Form.Group className="mb-3">
                             <Form.Label>City</Form.Label>
-                            <Form.Control type="text" name="city" value={formData.city} onChange={handleChange}/>
+                            <Form.Control type="text" name="city" value={formData.city ?? ""} onChange={handleChange}/>
                             {errors.city && <span className="text-danger">{errors.city}</span> }
                         </Form.Group>
                     </Col>
@@ -40,7 +40,7 @@ function Address({formData, handleChange, errors}:
                     <Col md={6}>
                         <Form.Group className="mb-3">
                             <Form.Label>State</Form.Label>
-                            <Form.Control type="text" name="state" value={formData.state} onChange={handleChange}/>
+                            <Form.Control type="text" name="state" value={formData.state ?? ""} onChange={handleChange}/>
                             {errors.state && <span className="text-danger">{errors.state}</span> }
                         </Form.Group>
                     </Col>
@@ -51,7 +51,7 @@ function Address({formData, handleChange, errors}:
                     <Col md={6}>
                         <Form.Group className="mb-3">
                             <Form.Label>Country</Form.Label>
-                            <Form.Control type="text" name="country" value={formData.country} onChange={handleChange}/>
+                            <Form.Control type="text" name="country" value={formData.country ?? ""} onChange={handleChange}/>
                             {errors.country && <span className="text-danger">{errors.country}</span> }
                         </Form.Group>
                     </Col>
@@ -60,7 +60,7 @@ function Address({formData, handleChange, errors}:
                     <Col>
                         <Form.Group className="mb-3">
                             <Form.Label>Pin code</Form.Label>
-                            <Form.Control type="text" name="pincode" value={formData.pincode} onChange={handleChange}/>
+                            <Form.Control type="text" name="pincode" value={formData.pincode ?? ""} onChange={handleChange}/>
                             {errors.pincode && <span className="text-danger">{errors.pincode}</span> }
                         </Form.Group>
                     </Col>
