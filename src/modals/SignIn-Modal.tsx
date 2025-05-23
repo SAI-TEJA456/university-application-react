@@ -12,6 +12,7 @@ import {useState, useEffect, useContext} from "react";
 import api from "../api/axiosConfig.ts";
 import {AxiosError} from "axios";
 import {UserContext} from "../components/UserContext.tsx";
+import {IUserData} from "../types/FormDataTypes.ts";
 
 //form data structure
 interface IFormData {
@@ -138,20 +139,15 @@ function SignInModal(
             //using post will enclose data of the user
             //await is like data from object assigned to response Json data from api
             const response = await api.post("/api/users/login",{
-
-                firstName: data.firstName,
-                middleName: data.middleName,
-                lastName: data.lastName,
                 email: data.email,
-                password: data.password,
-                role: data.role,
+                passwordHash: data.password
             })
             //so when we mad an HTTP request we have certain status code
             //for now 200 means OK or successfull
             if(response.status === 200){
                 // here we start storing data received from api request
                 console.log("What data I am receiving?", response.data);
-                const userData = response.data;
+                const userData: IUserData = response.data;
 
                 //updating user data in useContext declared
                 updateUser?.(userData);

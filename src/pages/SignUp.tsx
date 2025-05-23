@@ -99,14 +99,22 @@ function SignUp() {
 
         setLoading(true);//starts loading means API request is starting
         try{
+            const userDataSend ={
+                firstName: formData.firstName,
+                middleName: formData.middleName,
+                lastName: formData.lastName,
+                email: formData.email,
+                passwordHash: formData.password,
+                role: formData.role
+            }
             //as we need to send data to server lets create post request
             //"/api/user" is url we create for user table
-            const response = await api.post("/api/users", formData)//api is the one we created with base url/server url
+            const response = await api.post("/api/users", userDataSend)//api is the one we created with base url/server url
 
             //checking on successful request which status i am receiving
             console.log(response.status);
             if (response.status === 201){
-                const userData : IUserData = {} as IUserData;
+                const userData : IUserData = response.data;
                 //update user as it need object
                 updateUser?.(userData);
                 //now we need to store data in local storage
@@ -116,7 +124,7 @@ function SignUp() {
                 navigate(formData.role === "Student" ? "/student-dashboard" : "/representative-dashboard");
             }
             // alert("Signed up successfully");//we need redirect to user or representative page
-            console.log(response.data);// just check which data sent
+            console.log("Signed Up:",response.data);// just check which data sent
         } catch (err){
             const axiosError = err as AxiosError<{message?: string}>;
             console.log("Sign Up Error", axiosError);

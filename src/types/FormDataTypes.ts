@@ -16,6 +16,7 @@
 
 
 export interface IUserData{
+    userId?: string;
     firstName:string;
     middleName?:string;
     lastName:string;
@@ -31,14 +32,14 @@ export interface IAuthData{
 
 export interface IGeneral extends IUserData{
     gender:string;
-    dob:string;
+    dateOfBirth:string;
     maritalStatus:string;
-    mobile:string;
-    addressLine: string;
+    mobileNumber:string;
+    address: string;
     city: string;
     state: string;
     country: string;
-    pincode: string;
+    zipcode: string;
     nationality: string;
     citizenship: string;
 
@@ -81,15 +82,16 @@ export interface IStudentTestScores extends IUserData{
 }
 
 export interface IUniversityGeneral {
-    universityAbout: string;
-    universityCountry: string;
-    universityImages:  File[] ;
-    universityLogoImg: string;
+    universityDescription: string;
+    country: string;
+    universityImage:   File[] ;
+    universityLogo:  File ;
     universityName: string;
-    universityState: string;
+    state: string;
     universityType: "Public" | "Private";
-    universityUrl: string
-    courseData?: ICourseDetails[];
+    universityUrlHome: string;
+    applicationProcess: string;
+    courses?: ICourseDetails[];
 }
 
 export interface ICourseDetails{
@@ -97,7 +99,7 @@ export interface ICourseDetails{
     courseDescription: string;
     annualTuitionFee: string;
     totalTuitionFee: string;
-    courseDuration?: string;
+    duration?: string;
     // //linking test scores
     // testScoreRequirements: IStudentTestScores;
     // educationRequirements?: Partial<IEducationDel>;
@@ -105,7 +107,6 @@ export interface ICourseDetails{
 }
 
 export interface  IApplicationProcess{
-    applicationDes: string;
     courseUrl: string;
     applicationDeadline: string;
     applicationFee?: string;
