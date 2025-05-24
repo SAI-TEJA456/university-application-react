@@ -3,13 +3,16 @@
 //added by representative
 import {Button, Card, Container, Form} from "react-bootstrap";
 import * as React from "react";
+
 import {useRef, useState} from "react";
 import {
     IApplicationProcess,
+
     IEducationDel,
     IStudentTestScores,
     IUniversityGeneral
 } from "../types/FormDataTypes.ts";
+
 
 import AddCourse from "../formCards/AddCourse.tsx";
 import EduDetails from "../formCards/EduDetails.tsx";
@@ -32,6 +35,7 @@ function AddUniversity() {
     // as i am thinking have multiple course forms so i have make an array
     //the below one is for handling one object
     // const [courseData, setCourseData] = useState<ICourseDetails>({} as ICourseDetails);
+
     
 //error will be applied to all the university page controls.
     //learnt a new thing in typescript that using this creates Record<K, T> is key, type-datatype for existing interface
@@ -258,6 +262,7 @@ function AddUniversity() {
      }
 
 
+
      //handles submit
     //as handle submit need to receive addCourse response that to proceed further or not
     //add course have some logic which need to be finished so we use async
@@ -365,6 +370,7 @@ function AddUniversity() {
             {/*To add a University*/}
             <Card className="mt-3 p-3">
                 <h3 className="text-center">Add University</h3>
+
                 {/*handleSubmit is called when form is  submitted*/}
                 <Form onSubmit={handleSubmit}>
                     {/*University name*/}
@@ -392,32 +398,39 @@ function AddUniversity() {
                         <textarea className="form-control" name="universityDescription" value={universityData.universityDescription ?? ""} onChange={handleUniversityChange}></textarea>
                         {errors.universityDescription && <span className="text-danger">{errors.universityDescription}</span>}
                     </div>
+
                     {/*State*/}
                     <Form.Group className="mb-3">
                         <Form.Label>University State:</Form.Label>
+
 
                         <Form.Control type="text" name="state" value={universityData.state ?? ""}
                                       onChange={handleUniversityChange} />
 
                         {errors.state && <span className="text-danger">{errors.state}</span>}
+
                     </Form.Group>
                     {/*Country*/}
                     <Form.Group className="mb-3">
                         <Form.Label>University Country:</Form.Label>
+
 
                         <Form.Control type="text" name="country"
                                       value={universityData.country ?? ""} onChange={handleUniversityChange}
                                       />
 
                         {errors.country && <span className="text-danger">{errors.country}</span>}
+
                     </Form.Group>
                     {/*University Website*/}
                     <Form.Group className="mb-3">
                         <Form.Label>University Website Link (Home Page Preferred):</Form.Label>
 
+
                         <Form.Control type="url" name="universityUrlHome" value={universityData.universityUrlHome ?? ""}
                                       onChange={handleUniversityChange}/>
                         {errors.universityUrlHome && <span className="text-danger">{errors.universityUrlHome}</span>}
+
 
                     </Form.Group>
 
@@ -426,8 +439,10 @@ function AddUniversity() {
                         <Form.Label>University Type (Public or Private):</Form.Label>
 
                         <Form.Select name="universityType" value={universityData.universityType ?? ""}
+
                                      onChange={handleUniversityChange} >
                             <option value={1}>Please Select a Value</option>
+
                             <option value="Public">Public</option>
                             <option value="Private">Private</option>
                         </Form.Select>
@@ -438,13 +453,16 @@ function AddUniversity() {
                     {/*University Image need to allow multiple images and I am facing issues while adding images like it's going blank*/}
                     <div className="mb-3">
                         <label htmlFor="formFileMultiple" className="form-label">University Images :</label>
+
                         <input className="form-control" type="file" name="universityImage" onChange={handleFileChange}
                                multiple/>
                         {errors.universityImage && (
                             <span className="text-danger">{errors.universityImage}</span>)}
+
                     </div>
                     {/*<Form.Group className="mb-3">*/}
                     {/*    <Form.Label>University Images :</Form.Label>*/}
+
 
                     {/*    <Form.Control type="file" multiple name="universityImage" onChange={handleFileChange}/>*/}
                     {/*</Form.Group>*/}
@@ -494,6 +512,7 @@ function AddUniversity() {
                     formData a prop will send back IEducationDel data to IAdduniversityData
                     handleChange is a callback function call handleUniversityChange any changes in EduDetails to update universityData.
                     */}
+
                     <EduDetails formData={universityData ?? {} as IEducationDel} handleChange={handleUniversityChange}
                                 errors={errors}/>
                     <div className="text-center mt-3">

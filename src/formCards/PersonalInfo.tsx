@@ -62,8 +62,10 @@ function PersonalInfo(
             {/*    Date of Birth*/}
                 <Form.Group className="mb-3">
                     <Form.Label>DOB</Form.Label>
+
                     <Form.Control type="date" value={formData.dateOfBirth ?? ""} name="dateOfBirth" onChange={handleChange} />
                     {errors.dateOfBirth && <span className="text-danger">{errors.dateOfBirth}</span> }
+
                 </Form.Group>
             {/*    Martial Status*/}
                 <Form.Group className="mb-3">
@@ -77,6 +79,7 @@ function PersonalInfo(
                     <Form.Label>Moblie Number</Form.Label>
 
                     <Form.Control type="tel" name="mobileNumber" value={formData.mobileNumber ?? ""} onChange={handleChange} />
+
 
                     {errors.mobileNumber && <span className="text-danger">{errors.mobileNumber}</span> }
                 </Form.Group>

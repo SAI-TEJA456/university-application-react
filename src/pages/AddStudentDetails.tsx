@@ -115,6 +115,7 @@ function AddStudentDetails() {
 
         if (name === "fatherMobile" && !/^[0-9]{10}$/.test(strValue)) errorMsg = "Please Enter a Valid Mobile Number";
 
+
         if (name === "motherMobile" && !/^[0-9]{10}$/.test(strValue) && !value) errorMsg = "Please Enter a Valid Mobile Number";
 
 
