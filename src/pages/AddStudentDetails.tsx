@@ -9,6 +9,9 @@ import TestScores from "../formCards/TestScores.tsx";
 import EduDetails from "../formCards/EduDetails.tsx";
 import BackgorundInfo from "../formCards/BackgorundInfo.tsx";
 import {UserContext} from "../components/UserContext.tsx";
+import api from "../api/axiosConfig.ts";
+import {useNavigate} from "react-router-dom";
+import {AxiosError} from "axios";
 
 
 //Created by Liesetty
@@ -35,6 +38,8 @@ function AddStudentDetails() {
     // useState for errors
     const [errors, setErrors] = useState<Partial<IStudentFormData>>({})
 
+    const navigate = useNavigate();
+
     // handleChange function call on every control change by user in all cards with onChange event listener
 
     // this will match the key = name for validation and give the output
@@ -57,6 +62,7 @@ function AddStudentDetails() {
     };
 
     const userInputValidation = (name : string , value : string) =>{
+        const strValue = String(value);
         const numValue = Number(value);
         let errorMsg = "";
 
@@ -67,7 +73,7 @@ function AddStudentDetails() {
         if (name === "gender" && !value) errorMsg = "Please select a gender"; //gender validation
 
         //DOB validation keep minimum age to 20 consider even 3 three skip classes according my age for masters
-        if (name === "dob") {
+        if (name === "dateOfBirth") {
             //we will be having a date object mm/dd/yy gives perfect validation upto date
             const todaysDate = new Date()
             const userDate = new Date(value)
@@ -84,11 +90,11 @@ function AddStudentDetails() {
 
         if (name === "maritalStatus" && !value) errorMsg = "Please select a Martial Status"; //martialStatus validation
 
-        if (name === "mobile" && !/^\d{10}$/.test(value))  errorMsg = "Please enter a Valid Mobile number"; //mobile number validation here we used regex validation where .test tests the value has 10digit or not
+        if (name === "mobileNumber" && !/^\d{10}$/.test(strValue))  errorMsg = "Please enter a Valid Mobile number"; //mobile number validation here we used regex validation where .test tests the value has 10digit or not
 
 
         // Validation for Address
-        if (name === "addressLine" && !value) errorMsg = "Address Line is required";
+        if (name === "address" && !value) errorMsg = "Address Line is required";
 
         if (name === "city" && !value) errorMsg = "City is Required";
 
@@ -97,7 +103,7 @@ function AddStudentDetails() {
 
         if (name === "country" && !value) errorMsg = "Country is Required";
 
-        if (name === "pincode" && !/^[0-9]{5}$/.test(value)) errorMsg = "Enter a Valid 5 digit Pin code"
+        if (name === "zipcode" && !/^[0-9]{5}$/.test(strValue)) errorMsg = "Enter a Valid 5 digit Pin code"
 
 
 
@@ -107,9 +113,10 @@ function AddStudentDetails() {
         if (name === "citizenship" && !value) errorMsg = "Citizenship is required"
 
 
-        if (name === "fatherMobile" && !/^[0-9]{10}$/.test(value)) errorMsg = "Please Enter a Valid Mobile Number";
+        if (name === "fatherMobile" && !/^[0-9]{10}$/.test(strValue)) errorMsg = "Please Enter a Valid Mobile Number";
 
-        if (name === "motherMobile" && !/^[0-9]{10}$/.test(value) && !value) errorMsg = "Please Enter a Valid Mobile Number";
+
+        if (name === "motherMobile" && !/^[0-9]{10}$/.test(strValue) && !value) errorMsg = "Please Enter a Valid Mobile Number";
 
 
 
@@ -155,9 +162,11 @@ function AddStudentDetails() {
 
         if(name === "bTechGpa" && ((numValue <0 || numValue >10) || !numValue)) errorMsg = "GPA must be between 0 and 10";
 
-        if(name === "numBTechBackLogs" && ((numValue <0) || !numValue)) errorMsg = "Backlogs cannot be negative";
-
-        if(name === "numIntBackLogs" && ((numValue <0) || !numValue)) errorMsg = "Backlogs cannot be negative";
+        if(["numBTechBackLogs", "numIntBackLogs"].includes(name) ) {
+            if (value.trim() === "") errorMsg = "Backlogs are required.";
+            if (isNaN(numValue)) errorMsg  = "Backlog should be numeric";
+            if(numValue <0) errorMsg = "Backlogs cannot be negative";
+        }
 
 
         return errorMsg;
@@ -175,7 +184,7 @@ function AddStudentDetails() {
     //scenario 3
     //lengthy validation as per formData
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         //get existing validation errors
         if (Object.values(errors).some(error => error)) {
@@ -185,29 +194,100 @@ function AddStudentDetails() {
         const validationErrors: Partial<IStudentFormData> = {};
         console.log(formData)
 
-        const formElements = e.currentTarget.querySelectorAll("input" )
+        const formElements = e.currentTarget.querySelectorAll("input")
 
         const requiredFields = Array.from(formElements).map((e) => (e as HTMLInputElement).name).filter((name) => name);
         console.log(requiredFields);
 
 
-        requiredFields.forEach(key =>{
+        requiredFields.forEach(key => {
             const keyType = key as keyof IStudentFormData;
             const errMsg = userInputValidation(key, formData[keyType] || "");
-            if (errMsg){
+            if (errMsg) {
                 validationErrors[keyType] = errMsg;
             }
         });
 
-        if(Object.keys(validationErrors).length > 0){
+        if (Object.keys(validationErrors).length > 0) {
             setErrors(prevErrors => ({...prevErrors, ...validationErrors}));
             return;
         }
 
+        const studentData = {
+            userId: user?.userId,
+            gender: formData.gender,
+            dateOfBirth: formData.dateOfBirth,
+            maritalStatus: formData.maritalStatus,
+            mobileNumber: formData.mobileNumber,
+            address: formData.address,
+            city: formData.city,
+            state: formData.state,
+            country: formData.country,
+            zipcode: formData.zipcode,
+            nationality: formData.nationality,
+            citizenship: formData.citizenship,
 
 
+            fatherMobile: formData.fatherMobile,
+            motherMobile: formData.motherMobile,
 
-        console.log("FormData Submitted",formData);
+            tenthPercent: formData.tenthPercent,
+            tenthGpa: formData.tenthGpa,
+
+            interPercent: formData.interPercent,
+            interGpa: formData.interGpa,
+            numIntBackLogs: formData.numIntBackLogs,
+
+            bTechPercent: formData.bTechPercent,
+            bTechGpa: formData.bTechGpa,
+            numBTechBackLogs: formData.numBTechBackLogs,
+
+            greScore: formData.greScore,
+            greVerbalScore: formData.greVerbalScore,
+            greQuantScore: formData.greQuantScore,
+
+            ieltsScore: formData.ieltsScore,
+            ieltsListScore: formData.ieltsListScore,
+            ieltsSpeakScore: formData.ieltsSpeakScore,
+            ieltsReadScore: formData.ieltsReadScore,
+            ieltsWriteScore: formData.ieltsWriteScore ,
+
+            tofelScore: formData.tofelScore,
+            tofelListScore: formData.tofelListScore,
+            tofelSpeakScore: formData.tofelSpeakScore,
+            tofelReadScore: formData.tofelReadScore,
+            tofelWriteScore: formData.ieltsWriteScore,
+
+            duolingoScore: formData.duolingoScore
+
+        }
+
+        const studentChangedData = {
+            userId: user?.userId,
+            firstName: formData.firstName,
+            middleName: formData.middleName,
+            lastName: formData.lastName
+        }
+
+
+        try {
+            const studentResponse = await api.post("/api/students", studentData)
+            const userResponse = await api.put(`api/users/${user?.userId}`, studentChangedData)
+            console.log("student data status:", studentResponse.status)
+            console.log("student user data status:", userResponse.status)
+            if (studentResponse.status === 201 && userResponse.status === 204) {
+
+                alert("Student Details Submitted Successfully");
+                navigate("/student-dashboard");
+            }
+        } catch (e) {
+            const axiosError = e as AxiosError<{ message?: string }>;
+            console.log("Submission Error", axiosError);
+        }
+
+        console.log("student data status:", studentData)
+        console.log("student user data status:", studentChangedData)
+        console.log("FormData Submitted", formData);
     };
 
 

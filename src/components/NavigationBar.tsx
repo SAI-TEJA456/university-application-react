@@ -1,6 +1,6 @@
 // importing react-bootstrap navigation bar components and tags
 
-import {Container, Form, Nav, Navbar, NavDropdown, Row, Col, Button, Dropdown} from "react-bootstrap";
+import {Container, Form, Nav, Navbar, NavDropdown, Row, Col, Dropdown} from "react-bootstrap";
 import SignInModal from "../modals/SignIn-Modal.tsx";
 import {useContext, useState} from "react";
 import {UserContext} from "./UserContext.tsx";
@@ -24,7 +24,7 @@ function NavigationBar() {
     const navigate = useNavigate();
     // lets create a state for showing signIn modal
     const [showSignIn, setShowSignIn] = useState(false);
-
+    const fullName = `${(user?.firstName ?? "")} ${(user?.middleName ?? "")} ${(user?.lastName ?? "")}`
     //so when signout button is clicked by user this function invokes
     //this function will pass a null value which clear the localstorage
     const handleSignOut = () =>{
@@ -35,10 +35,10 @@ function NavigationBar() {
     return (
         //expand is a prop allow for collapsing 'lg' for breakpoint
         //Use spacing and flex utilities to size and position content
-        <Navbar fixed="top" expand="lg" className="bg-body-tertiary">
+        <Navbar fixed="top" expand="lg" className="bg-slate-500">
             <Container>
                 {/*title*/}
-                <Navbar.Brand href="#home">University Assistance</Navbar.Brand>
+                <Navbar.Brand className="text-white" href="/">University Assistance</Navbar.Brand>
                 {/*Dynamic Search Bar with <Form inline>*/}
                 <Form>
                     <Row>
@@ -55,7 +55,7 @@ function NavigationBar() {
                     {/*S::links*/}
                     <Nav className="me-auto">
                         {/*Home*/}
-                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         {/*SomeLinks*/}
                         <Nav.Link href="#link">Link</Nav.Link>
                         {/*Dropdown*/}
@@ -72,10 +72,11 @@ function NavigationBar() {
                      if not sign in button is shown
                      */}
                     {user ? (
+
                         <Dropdown>
                         <Dropdown.Toggle as="div" className="d-flex align-items-center" style={{cursor : "pointer"}}>
                             <FaUserGraduate size={20} className="me-2"/>
-                            <span>{user.firstName + " " + user.middleName + " " + user.lastName}</span>
+                            <span>{fullName}</span>
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
@@ -90,7 +91,9 @@ function NavigationBar() {
                                 <Col xs="auto">
                                     {/*variant is for change color*/}
                                     {/*while clicking button onClick function changes setShowSignIn pass it Sign In Modal*/}
-                                    <Button variant="primary" onClick={() =>{setShowSignIn(true)}}>Sign In</Button>
+                                    <button className="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-300 border-none shadow-md transition-colors duration-300" onClick={() => { setShowSignIn(true); }}>
+                                        Sign In
+                                    </button>
                                 </Col>
                             </Row>
                         </Form>

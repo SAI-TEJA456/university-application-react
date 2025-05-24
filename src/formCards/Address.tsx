@@ -24,8 +24,10 @@ function Address({formData, handleChange, errors}:
             {/*    Address line*/}
                 <Form.Group className="mb-3">
                     <Form.Label>Address Line</Form.Label>
-                    <Form.Control type="text" name="addressLine" value={formData.addressLine ?? ""} onChange={handleChange} />
-                    {errors.addressLine && <span className="text-danger">{errors.addressLine}</span> }
+
+                    <Form.Control type="text" name="address" value={formData.address ?? ""} onChange={handleChange} />
+                    {errors.address && <span className="text-danger">{errors.address}</span> }
+
                 </Form.Group>
             {/*    City*/}
                 <Row>
@@ -59,9 +61,11 @@ function Address({formData, handleChange, errors}:
                     {/*pin code*/}
                     <Col>
                         <Form.Group className="mb-3">
-                            <Form.Label>Pin code</Form.Label>
-                            <Form.Control type="text" name="pincode" value={formData.pincode ?? ""} onChange={handleChange}/>
-                            {errors.pincode && <span className="text-danger">{errors.pincode}</span> }
+
+                            <Form.Label>Zip code</Form.Label>
+                            <Form.Control type="text" name="zipcode" value={formData.zipcode ?? ""} onChange={handleChange}/>
+                            {errors.zipcode && <span className="text-danger">{errors.zipcode}</span> }
+
                         </Form.Group>
                     </Col>
                 </Row>
